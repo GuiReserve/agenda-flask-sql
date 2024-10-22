@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles/estilo.css">
+    <title>Consultar Pessoas</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/">Cadastro</a></li>
+        <li><a href="/consulta">Consulta</a></li>
+    </ul>
+</nav>
+ 
+<div class="table-container">
+    <h2>Pessoas Cadastradas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Imagem</th> <!-- Nova coluna para imagem -->
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pessoa in pessoas %}
+            <tr>
+                <td>{{ pessoa[0] }}</td>
+                <td>{{ pessoa[1] }}</td>
+                <td>{{ pessoa[2] }}</td>
+                <td>{{ pessoa[3] }}</td>
+                <td>
+                    {% if pessoa[4] %} <!-- Verifica se a imagem existe -->
+                        <img src="{{ url_for('static', filename='uploads/' + pessoa[4]) }}" alt="Imagem de {{ pessoa[1] }}" width="100px">
+                    {% else %}
+                        Sem imagem
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/editar/{{ pessoa[0] }}" class="link_editar">Editar</a>
+                    <a href="/excluir/{{ pessoa[0] }}" class="link_excluir">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
